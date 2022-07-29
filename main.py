@@ -18,7 +18,11 @@ def get_user_text(message):
     elif message.text == 'id':
         bot.send_message(message.chat.id, f"Твой ID: {message.from_user.id}", parse_mode='html')
     else:
-        bot.send_message(message.chat.id, f"Я тебя не понимаю", parse_mode='html')
+        echo_all(message)
+
+
+def echo_all(message):
+    bot.reply_to(message, message.text)
 
 
 bot.polling(none_stop=True)
