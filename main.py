@@ -18,14 +18,20 @@ def start(message):
 @bot.message_handler()
 def get_user_text(message):
     if message.text == 'Hello':
-        bot.send_message(message.chat.id, "И тебе привет", parse_mode='html')
+        bot.send_message(message.chat.id, "И тебе привет")
     elif message.text == 'id':
-        bot.send_message(message.chat.id, f"Твой ID: {message.from_user.id}", parse_mode='html')
+        bot.send_message(message.chat.id, f"Твой ID: {message.from_user.id}")
     elif message.text == 'photo':
         photo = open('4848.jpg', 'rb')
         bot.send_photo(message.chat.id, photo)
+        bot.send_message(message.chat.id, "Вот твое фото")
     else:
         echo_all(message)
+
+
+@bot.message_handler(commands=["clear"])
+def clear(message):
+    bot.delete_message(message.chat.id, message.message.id)
 
 
 bot.polling(none_stop=True)
