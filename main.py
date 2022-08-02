@@ -16,15 +16,6 @@ def website(message):
     bot.send_message(message.chat.id, 'Перейдите на обучающий сайт', reply_markup=markup)
 
 
-@bot.message_handler(commands=["help"])
-def website(message):
-    markup = types.InlineKeyboardMarkup()
-    markup.add(types.InlineKeyboardButton("Посетите веб сайт!",
-                                          url="https://www.youtube.com/watch?v=HodO2eBEz_8&list=PL0lO_mIqDDFUdlTc097-1A9IBchtJEggp"))
-    bot.send_message(message.chat.id, 'Перейдите на обучающий сайт', reply_markup=markup)
-
-
-
 @bot.message_handler(commands=['start'])
 def start(message):
     mess = f'Привет, {message.from_user.first_name} {message.from_user.last_name}'
@@ -35,6 +26,13 @@ def start(message):
     bot.send_message(message.chat.id, mess)
 
 
+@bot.message_handler(commands=['help'])
+def help(message):
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
+    website = types.KeyboardButton("Сайт")
+    start = types.KeyboardButton("Старт")
+    markup.add(website, start)
+    bot.send_message(message.chat.id, 'Список комманд', reply_markup=markup)
 
 
 @bot.message_handler(content_types=["text"])
