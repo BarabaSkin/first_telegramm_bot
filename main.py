@@ -1,4 +1,5 @@
 import telebot
+from telebot import types
 
 bot = telebot.TeleBot('5468350236:AAFvmQA5hlbmRnp9ojVgWjUx7oBKxgCO_dU')
 
@@ -7,12 +8,33 @@ def echo_all(message):
     bot.reply_to(message, message.text)
 
 
+@bot.message_handler(commands=["website"])
+def website(message):
+    markup = types.InlineKeyboardMarkup()
+    markup.add(types.InlineKeyboardButton("Посетите веб сайт!",
+                                          url="https://www.youtube.com/watch?v=HodO2eBEz_8&list=PL0lO_mIqDDFUdlTc097-1A9IBchtJEggp"))
+    bot.send_message(message.chat.id, 'Перейдите на обучающий сайт', reply_markup=markup)
+
+
+@bot.message_handler(commands=["help"])
+def website(message):
+    markup = types.InlineKeyboardMarkup()
+    markup.add(types.InlineKeyboardButton("Посетите веб сайт!",
+                                          url="https://www.youtube.com/watch?v=HodO2eBEz_8&list=PL0lO_mIqDDFUdlTc097-1A9IBchtJEggp"))
+    bot.send_message(message.chat.id, 'Перейдите на обучающий сайт', reply_markup=markup)
+
+
+
 @bot.message_handler(commands=['start'])
 def start(message):
     mess = f'Привет, {message.from_user.first_name} {message.from_user.last_name}'
     if message.from_user.last_name is None:
-        mess = mess = f'Привет, {message.from_user.first_name}'
+        mess = f'Привет, {message.from_user.first_name}'
+    else:
+        mess = f'Привет, {message.from_user.first_name} {message.from_user.last_name}'
     bot.send_message(message.chat.id, mess)
+
+
 
 
 @bot.message_handler(content_types=["text"])
@@ -27,11 +49,6 @@ def get_user_text(message):
         bot.send_message(message.chat.id, "Вот твое фото")
     else:
         echo_all(message)
-
-
-@bot.message_handler(content_types=['photo'])
-def get_user_photo(message):
-    bot.send_message(message.chet.id, 'Вау, крутое фото!', )
 
 
 bot.polling(none_stop=True)
