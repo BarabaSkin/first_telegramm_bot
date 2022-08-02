@@ -15,7 +15,7 @@ def start(message):
     bot.send_message(message.chat.id, mess)
 
 
-@bot.message_handler()
+@bot.message_handler(content_types=["text"])
 def get_user_text(message):
     if message.text == 'Hello':
         bot.send_message(message.chat.id, "И тебе привет")
@@ -29,9 +29,9 @@ def get_user_text(message):
         echo_all(message)
 
 
-@bot.message_handler(commands=["clear"])
-def clear(message):
-    bot.delete_message(message.chat.id, message.message.id)
+@bot.message_handler(content_types=['photo'])
+def get_user_photo(message):
+    bot.send_message(message.chet.id, 'Вау, крутое фото!', )
 
 
 bot.polling(none_stop=True)
